@@ -22,6 +22,10 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
+//-----------------ADD GUOXUAN-----------------------
+extern volatile int8_t usb_rxne;
+extern uint8_t usb_rx[2048]; 
+//---------------------------------------------------
 
 /* USER CODE END INCLUDE */
 
@@ -264,6 +268,11 @@ static int8_t CDC_Control_HS(uint8_t cmd, uint8_t* pbuf, uint16_t length)
 static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 11 */
+	//-------------ADD GUOXUAN--------------------
+  memcpy(usb_rx, Buf, *Len); 
+usb_rxne = SET;
+//--------------------------------------------
+
   USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceHS);
   return (USBD_OK);
