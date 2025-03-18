@@ -24,6 +24,11 @@
 /* USER CODE BEGIN Includes */
 //---------------ADD GUOXUAN--------------------------
 #include "usbd_cdc_if.h"
+
+
+#define DATA_SIZE 40960  // 恢复到原始工作值
+
+uint8_t myData[DATA_SIZE];
 //----------------------------------------------------
 
 /* USER CODE END Includes */
@@ -31,9 +36,8 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 //--------------ADD GUOXUAN-----------------------
-uint8_t usb_rx[2048];
-uint8_t usb_tx[81920];
-volatile int8_t usb_rxne = RESET;
+
+
 extern USBD_HandleTypeDef hUsbDeviceHS;
 //-----------------------------------------------
 
@@ -66,13 +70,11 @@ static void MX_GPIO_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 //------------ADD GUOXUAN-------------------
-void WinUSB_Receive_HS()
+void WinUSB_Receive_HS(uint8_t* data, size_t length)
 {
-	uint16_t i = 0;
-	if (usb_rxne != SET) return;
-	i = usb_rx[0] + (usb_rx[1]<<8);
-	CDC_Transmit_HS(usb_tx, i);
-	usb_rxne = RESET;
+
+
+  CDC_Transmit_HS(data, length);
 }
 //------------------------------------------
 
@@ -117,14 +119,21 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+
+
+  for (uint16_t i = 0; i < DATA_SIZE; i++) {
+      myData[i] = (i % 2) + 1;  // 使用取模运算填充 1, 2
+  }
+
+  
   while (1)
   {
-    WinUSB_Receive_HS();
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
+    CDC_Transmit_HS(myData, DATA_SIZE);
+    
   }
-  /* USER CODE END 3 */
+    
+   
 }
 
 /**

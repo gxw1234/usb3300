@@ -23,8 +23,8 @@
 
 /* USER CODE BEGIN INCLUDE */
 //-----------------ADD GUOXUAN-----------------------
-extern volatile int8_t usb_rxne;
-extern uint8_t usb_rx[2048]; 
+// extern volatile int8_t usb_rxne;
+// extern uint8_t usb_rx[2048]; 
 //---------------------------------------------------
 
 /* USER CODE END INCLUDE */
@@ -269,8 +269,7 @@ static int8_t CDC_Receive_HS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 11 */
 	//-------------ADD GUOXUAN--------------------
-  memcpy(usb_rx, Buf, *Len); 
-usb_rxne = SET;
+
 //--------------------------------------------
 
   USBD_CDC_SetRxBuffer(&hUsbDeviceHS, &Buf[0]);

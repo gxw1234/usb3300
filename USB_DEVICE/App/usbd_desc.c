@@ -62,9 +62,9 @@
   * @{
   */
 
-#define USBD_VID     0x1733
+#define USBD_VID     0xCCDD
 #define USBD_LANGID_STRING     1033
-#define USBD_MANUFACTURER_STRING     "STMicroelectronics"
+#define USBD_MANUFACTURER_STRING     "listenai"
 #define USBD_PID_HS     0xAABB
 #define USBD_PRODUCT_STRING_HS     "GXW"
 #define USBD_CONFIGURATION_STRING_HS     "WINUSB Config"
