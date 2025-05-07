@@ -17,8 +17,6 @@ target_include_directories(stm32cubemx INTERFACE
     ../../USB_DEVICE/App
     ../../USB_DEVICE/Target
     ../../Core/Inc
-    ../../Core/Inc/LCD
-    ../../Core/config
     ../../Drivers/STM32H7xx_HAL_Driver/Inc
     ../../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy
     ../../Middlewares/ST/STM32_USB_Device_Library/Core/Inc
@@ -28,9 +26,7 @@ target_include_directories(stm32cubemx INTERFACE
 )
 
 target_sources(stm32cubemx INTERFACE
-    ../../Core/main.c
-    ../../Core/config/bsp_config.c
-    ../../Core/Src/LCD/lcd.c
+    ../../Core/Src/main.c
     ../../Core/Src/stm32h7xx_it.c
     ../../Core/Src/stm32h7xx_hal_msp.c
     ../../USB_DEVICE/App/usb_device.c
@@ -76,3 +72,5 @@ target_link_libraries(stm32cubemx INTERFACE
 if(CMAKE_C_STANDARD LESS 11)
     message(ERROR "Generated code requires C11 or higher")
 endif()
+
+
